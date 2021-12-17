@@ -36,7 +36,8 @@
               "src/mstile-310x310.png",
               "src/mstile-310x150.png",
               "src/safari-pinned-tab.svg",
-              "src/assets/img/icons/lemon.svg"
+              "src/assets/img/icons/lemon.svg",
+              "src/site.webmanifest"
             ],
             "styles": ["src/lemon-mart-theme.scss", "src/styles.css"],
             "scripts": []
