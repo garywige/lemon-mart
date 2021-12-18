@@ -4,8 +4,8 @@ import { RouterModule, Routes } from '@angular/router'
 import { PosComponent } from './pos.component'
 
 const routes: Routes = [
-  {path: '', redirectTo: '/pos/pos', pathMatch: 'full'},
-  {path: 'pos', component: PosComponent}
+  { path: '', redirectTo: '/pos/pos', pathMatch: 'full' },
+  { path: 'pos', component: PosComponent },
 ]
 
 @NgModule({
