@@ -28,8 +28,11 @@ export abstract class AuthService extends CacheService implements IAuthService {
   }
 
   login(email: string, password: string): Observable<void> {
+    this.clearToken()
+
     const loginResponse$ = this.authProvider(email, password).pipe(
       map((value) => {
+        this.setToken(value.accessToken)
         const token = jwtDecode(value.accessToken)
         return this.transformJwtToken(token)
       }),
@@ -51,11 +54,10 @@ export abstract class AuthService extends CacheService implements IAuthService {
   }
 
   logout(clearToken?: boolean): void {
+    if (clearToken) {
+      this.clearToken()
+    }
     setTimeout(() => this.authStatus$.next(defaultAuthStatus), 0)
-  }
-
-  getToken(): string {
-    throw new Error('Method not implemented.')
   }
 
   protected abstract authProvider(
@@ -64,6 +66,18 @@ export abstract class AuthService extends CacheService implements IAuthService {
   ): Observable<IServerAuthResponse>
   protected abstract transformJwtToken(token: unknown): IAuthStatus
   protected abstract getCurrentUser(): Observable<User>
+
+  protected setToken(jwt: string) {
+    this.setItem('jwt', jwt)
+  }
+
+  getToken(): string {
+    return this.getItem('jwt') ?? ''
+  }
+
+  protected clearToken() {
+    this.removeItem('jwt')
+  }
 }
 
 export interface IAuthStatus {
