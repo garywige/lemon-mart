@@ -14,13 +14,15 @@ import {
 import { transformError } from '../common/common'
 import { IUser, User } from '../user/user/user'
 import { Role } from './auth.enum'
+import { CacheService } from './cache.service'
 
 @Injectable()
-export abstract class AuthService implements IAuthService {
+export abstract class AuthService extends CacheService implements IAuthService {
   readonly authStatus$: BehaviorSubject<IAuthStatus>
   readonly currentUser$: BehaviorSubject<IUser>
 
   constructor() {
+    super()
     this.authStatus$ = new BehaviorSubject<IAuthStatus>(defaultAuthStatus)
     this.currentUser$ = new BehaviorSubject<IUser>(new User())
   }
