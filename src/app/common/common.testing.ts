@@ -1,39 +1,40 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { SecurityContext } from "@angular/core";
-import { MediaChange } from "@angular/flex-layout";
-import { ReactiveFormsModule } from "@angular/forms";
-import { SafeResourceUrl, SafeValue } from "@angular/platform-browser";
-import { NoopAnimationsModule } from "@angular/platform-browser/animations";
-import { RouterTestingModule } from "@angular/router/testing";
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { SecurityContext } from '@angular/core'
+import { MediaChange } from '@angular/flex-layout'
+import { ReactiveFormsModule } from '@angular/forms'
+import { SafeResourceUrl, SafeValue } from '@angular/platform-browser'
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'
+import { RouterTestingModule } from '@angular/router/testing'
 import { Observable, Subscription, of } from 'rxjs'
 
-import { MaterialModule } from "../material.module";
+import { MaterialModule } from '../material.module'
 
 const FAKE_SVGS = {
-  lemon: '<svg><path id="lemon"></path></svg>'
+  lemon: '<svg><path id="lemon"></path></svg>',
 }
 
-export class MediaObserverFake{
-  isActive(query: string): boolean{
+export class MediaObserverFake {
+  isActive(query: string): boolean {
     return false
   }
 
-  asObservable(): Observable<MediaChange>{
-    return of(() as MediaChange)
+  asObservable(): Observable<MediaChange> {
+    return of({} as MediaChange)
   }
 
   subscribe(
     next?: (value: MediaChange) => void,
     error?: (error: any) => void,
-    complete?: () => void): Subscription{
-      return new Subscription()
+    complete?: () => void
+  ): Subscription {
+    return new Subscription()
   }
 }
 
-export class MatIconRegistryFake{
+export class MatIconRegistryFake {
   // tslint:disable-next-line: variable-name
   _document = document
-  addSvgIcon(iconName: string, url: SafeResourceUrl): this{
+  addSvgIcon(iconName: string, url: SafeResourceUrl): this {
     // this.addSvgIcon('lemon', 'lemon.svg')
     return this
   }
@@ -46,7 +47,7 @@ export class MatIconRegistryFake{
     const div = (this._document || document).createElement('DIV')
     div.innerHTML = str
     const svg = div.querySelector('svg') as SVGElement
-    if(!svg){
+    if (!svg) {
       throw Error('<svg> tag not found')
     }
     return svg
@@ -68,6 +69,9 @@ export const commonTestingProviders: any[] = [
 ]
 
 export const commonTestingModules: any[] = [
-  ReactiveFormsModule, MaterialModule, NoopAnimationsModule, HttpClientTestingModule,
-  RouterTestingModule
+  ReactiveFormsModule,
+  MaterialModule,
+  NoopAnimationsModule,
+  HttpClientTestingModule,
+  RouterTestingModule,
 ]
