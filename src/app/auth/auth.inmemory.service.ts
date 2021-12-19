@@ -67,7 +67,7 @@ export class InMemoryAuthService extends AuthService {
     this.defaultUser.role = authStatus.userRole
 
     const authResponse = {
-      accessToken: sign(authStatus, 'secret', { expiresIn: '1h', algorithm: 'none' }),
+      accessToken: sign(authStatus, 'secret', { expiresIn: '1m', algorithm: 'none' }),
     } as IServerAuthResponse
 
     return of(authResponse)

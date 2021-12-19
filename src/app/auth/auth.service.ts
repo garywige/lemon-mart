@@ -7,6 +7,7 @@ import {
   filter,
   flatMap,
   map,
+  pipe,
   tap,
   throwError,
 } from 'rxjs'
@@ -20,11 +21,27 @@ import { CacheService } from './cache.service'
 export abstract class AuthService extends CacheService implements IAuthService {
   readonly authStatus$: BehaviorSubject<IAuthStatus>
   readonly currentUser$: BehaviorSubject<IUser>
+  protected readonly resumeCurrentUser$: Observable<void>
+  private getAndUpdateUserIfAuthenticated: any
 
   constructor() {
     super()
+    this.getAndUpdateUserIfAuthenticated = pipe(
+      filter((status: IAuthStatus) => status.isAuthenticated),
+      flatMap(() => this.getCurrentUser()),
+      map((user: IUser) => this.currentUser$.next(user), catchError(transformError))
+    )
+
     this.authStatus$ = new BehaviorSubject<IAuthStatus>(defaultAuthStatus)
     this.currentUser$ = new BehaviorSubject<IUser>(new User())
+    this.resumeCurrentUser$ = this.authStatus$.pipe(this.getAndUpdateUserIfAuthenticated)
+
+    if (this.hasExpiredToken()) {
+      this.logout(true)
+    } else {
+      this.authStatus$.next(this.getAuthStatusFromTdken())
+      setTimeout(() => this.resumeCurrentUser$.subscribe(), 0)
+    }
   }
 
   login(email: string, password: string): Observable<void> {
@@ -37,10 +54,7 @@ export abstract class AuthService extends CacheService implements IAuthService {
         return this.transformJwtToken(token)
       }),
       tap((status) => this.authStatus$.next(status)),
-      filter((status: IAuthStatus) => status.isAuthenticated),
-      flatMap(() => this.getCurrentUser()),
-      map((user) => this.currentUser$.next(user)),
-      catchError(transformError)
+      this.getAndUpdateUserIfAuthenticated
     )
 
     loginResponse$.subscribe({
@@ -50,7 +64,7 @@ export abstract class AuthService extends CacheService implements IAuthService {
       },
     })
 
-    return loginResponse$
+    return loginResponse$ as Observable<void>
   }
 
   logout(clearToken?: boolean): void {
@@ -77,6 +91,21 @@ export abstract class AuthService extends CacheService implements IAuthService {
 
   protected clearToken() {
     this.removeItem('jwt')
+  }
+
+  protected hasExpiredToken(): boolean {
+    const jwt = this.getToken()
+
+    if (jwt) {
+      const payload = jwtDecode(jwt) as any
+      return Date.now() >= payload.exp * 1000
+    }
+
+    return true
+  }
+
+  protected getAuthStatusFromTdken(): IAuthStatus {
+    return this.transformJwtToken(jwtDecode(this.getToken()))
   }
 }
 
