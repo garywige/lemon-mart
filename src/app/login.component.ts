@@ -5,6 +5,7 @@ import { catchError, combineLatest, filter, tap } from 'rxjs'
 import { SubSink } from 'subsink'
 
 import { AuthService, defaultAuthStatus } from './auth/auth.service'
+import { UiService } from './common/ui.service'
 import { EmailValidation, PasswordValidation } from './common/validations'
 
 @Component({
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authSdervice: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private uiService: UiService
   ) {
     this.subs.sink = route.paramMap.subscribe(
       (params) => (this.redirectUrl = params.get('redirectUrl') ?? '')
@@ -68,6 +70,9 @@ export class LoginComponent implements OnInit {
         filter(([authStatus, user]) => authStatus.isAuthenticated && user?._id !== ''),
         tap(([authStatus, user]) => {
           this.router.navigate([this.redirectUrl || '/manager'])
+        }),
+        tap(([authStatus, user]) => {
+          this.uiService.showToast(`Welcome ${user.fullName}! Role: ${user.role}`)
         })
       )
       .subscribe()
