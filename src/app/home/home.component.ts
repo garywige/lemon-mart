@@ -8,9 +8,13 @@ import { AuthService } from '../auth/auth.service'
 @Component({
   selector: 'app-home',
   template: `
-    <div fxLayout="column" fxLayoutAlign="center center">
-      <span class="mat-display-2">Hello, Limoncu!</span>
-      <button mat-raised-button color="accent" (click)="login()">Login as Manager</button>
+    <div *ngIf="displayLogin">
+      <app-login></app-login>
+    </div>
+    <div *ngIf="!displayLogin">
+      <span class="mat-display-3"
+        >You get a lemon, you get a lemon, you get a lemon...</span
+      >
     </div>
   `,
   styles: [
@@ -22,7 +26,11 @@ import { AuthService } from '../auth/auth.service'
   ],
 })
 export class HomeComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {}
+  displayLogin: boolean
+
+  constructor(private authService: AuthService, private router: Router) {
+    this.displayLogin = true
+  }
 
   ngOnInit(): void {}
 
