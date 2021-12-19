@@ -15,7 +15,7 @@ export class InMemoryAuthService extends AuthService {
       first: 'Gary',
       last: 'Wige',
     },
-    picture: '',
+    picture: '/assets/img/icons/lemon.svg',
     role: Role.Manager,
     dateOfBirth: new Date(1983, 12, 22),
     userStatus: true,
