@@ -5,6 +5,7 @@ import { catchError, combineLatest, filter, tap } from 'rxjs'
 import { SubSink } from 'subsink'
 
 import { AuthService, defaultAuthStatus } from './auth/auth.service'
+import { EmailValidation, PasswordValidation } from './common/validations'
 
 @Component({
   selector: 'app-login',
@@ -49,11 +50,8 @@ export class LoginComponent implements OnInit {
 
   buildLoginForm() {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [Validators.required, Validators.minLength(8), Validators.maxLength(50)],
-      ],
+      email: ['', EmailValidation],
+      password: ['', PasswordValidation],
     })
   }
 
