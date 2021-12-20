@@ -7,6 +7,7 @@ import { SubSink } from 'subsink'
 import { AuthService } from './auth/auth.service'
 import { UiService } from './common/ui.service'
 import { EmailValidation, PasswordValidation } from './common/validations'
+import { Role } from './auth/auth.enum'
 
 @Component({
   selector: 'app-login',
@@ -69,12 +70,25 @@ export class LoginComponent implements OnInit {
       .pipe(
         filter(([authStatus, user]) => authStatus.isAuthenticated && user?._id !== ''),
         tap(([authStatus, user]) => {
-          this.router.navigate([this.redirectUrl || '/manager'])
+          this.router.navigate([this.redirectUrl || this.homeRoutePerRole(user.role as Role)])
         }),
         tap(([authStatus, user]) => {
           this.uiService.showToast(`Welcome ${user.fullName}! Role: ${user.role}`)
         })
       )
       .subscribe()
+  }
+
+  private homeRoutePerRole(role: Role) {
+    switch(role){
+      case Role.Cashier:
+        return '/pos'
+      case Role.Clerk:
+        return '/inventory'
+      case Role.Manager:
+        return '/manager'
+      default:
+        return '/user/profile'
+    }
   }
 }
