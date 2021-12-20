@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
-import { Observable, ObservableInput, catchError, throwError } from 'rxjs'
+import { Observable, catchError, throwError } from 'rxjs'
 
 import { AuthService } from './auth.service'
 

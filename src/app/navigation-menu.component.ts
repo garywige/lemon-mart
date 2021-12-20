@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-navigation-menu',
@@ -22,23 +22,20 @@ import { Component, OnInit } from '@angular/core';
         Categories
       </a>
       <h3 matSubheader>Clerk</h3>
-      <a mat-list-item routerLinkActive="active-link" routerLink="/pos">
-        POS
-      </a>
+      <a mat-list-item routerLinkActive="active-link" routerLink="/pos"> POS </a>
     </mat-nav-list>
   `,
-  styles: [`
-    .active-link {
-      font-weight: bold;
-      border-left: 3px solid green;
-    }
-  `]
+  styles: [
+    `
+      .active-link {
+        font-weight: bold;
+        border-left: 3px solid green;
+      }
+    `,
+  ],
 })
 export class NavigationMenuComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
