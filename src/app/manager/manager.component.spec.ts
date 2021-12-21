@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { commonTestingModules } from '../common/common.testing'
+import { commonTestingModules, commonTestingProviders } from '../common/common.testing'
 import { ManagerComponent } from './manager.component'
 
 describe('ManagerComponent', () => {
@@ -11,6 +11,7 @@ describe('ManagerComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ManagerComponent],
       imports: commonTestingModules,
+      providers: commonTestingProviders,
     }).compileComponents()
   })
 

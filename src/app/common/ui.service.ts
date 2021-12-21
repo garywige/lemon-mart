@@ -8,7 +8,7 @@ import { SimpleDialogComponent } from './simple-dialog.component'
 @Injectable({
   providedIn: 'root',
 })
-export class UiService {
+export class UiService implements IUiService {
   constructor(private snackBar: MatSnackBar, private dialog: MatDialog) {}
 
   showToast(message: string, action = 'Close', config?: MatSnackBarConfig) {
@@ -31,5 +31,31 @@ export class UiService {
     )
 
     return dialogRef.afterClosed()
+  }
+}
+
+export interface IUiService {
+  showToast(message: string, action: string, config?: MatSnackBarConfig): void
+  showDialog(
+    title: string,
+    content: string,
+    okText: string,
+    cancelText?: string,
+    customConfig?: MatDialogConfig
+  ): Observable<boolean>
+}
+
+export class UiServiceFake implements IUiService {
+  showToast(message: string, action: string, config?: MatSnackBarConfig<any>): void {
+    return
+  }
+  showDialog(
+    title: string,
+    content: string,
+    okText: string,
+    cancelText?: string,
+    customConfig?: MatDialogConfig<any>
+  ): Observable<boolean> {
+    return new Observable<boolean>()
   }
 }

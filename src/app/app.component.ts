@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { MediaObserver } from '@angular/flex-layout'
 import { MatIconRegistry } from '@angular/material/icon'
 import { DomSanitizer } from '@angular/platform-browser'
@@ -114,7 +114,7 @@ import { AuthService } from './auth/auth.service'
     `,
   ],
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   title = 'LemonMart'
   private subs = new SubSink()
   opened: boolean
@@ -152,8 +152,5 @@ export class AppComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe()
-  }
-  ngOnDestroy(): void {
-    throw new Error('Method not implemented.')
   }
 }

@@ -4,10 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { catchError, combineLatest, filter, tap } from 'rxjs'
 import { SubSink } from 'subsink'
 
+import { Role } from './auth/auth.enum'
 import { AuthService } from './auth/auth.service'
 import { UiService } from './common/ui.service'
 import { EmailValidation, PasswordValidation } from './common/validations'
-import { Role } from './auth/auth.enum'
 
 @Component({
   selector: 'app-login',
@@ -70,7 +70,9 @@ export class LoginComponent implements OnInit {
       .pipe(
         filter(([authStatus, user]) => authStatus.isAuthenticated && user?._id !== ''),
         tap(([authStatus, user]) => {
-          this.router.navigate([this.redirectUrl || this.homeRoutePerRole(user.role as Role)])
+          this.router.navigate([
+            this.redirectUrl || this.homeRoutePerRole(user.role as Role),
+          ])
         }),
         tap(([authStatus, user]) => {
           this.uiService.showToast(`Welcome ${user.fullName}! Role: ${user.role}`)
@@ -80,7 +82,7 @@ export class LoginComponent implements OnInit {
   }
 
   private homeRoutePerRole(role: Role) {
-    switch(role){
+    switch (role) {
       case Role.Cashier:
         return '/pos'
       case Role.Clerk:
