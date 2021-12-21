@@ -11,12 +11,14 @@ import {
   commonTestingModules,
   commonTestingProviders,
 } from './common/common.testing'
+import { LoginComponent } from './login.component'
+import { NavigationMenuComponent } from './navigation-menu.component'
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [commonTestingModules],
-      declarations: [AppComponent],
+      declarations: [AppComponent, NavigationMenuComponent, LoginComponent],
       providers: commonTestingProviders.concat([
         { provide: MediaObserver, useClass: MediaObserverFake },
         { provide: MatIconRegistry, useClass: MatIconRegistryFake },

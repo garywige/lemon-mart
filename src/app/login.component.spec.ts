@@ -1,25 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import {
-  commonTestingModules,
-  commonTestingProviders,
-} from 'src/app/common/common.testing'
 
-import { ProfileComponent } from './profile.component'
+import { commonTestingModules, commonTestingProviders } from './common/common.testing'
+import { LoginComponent } from './login.component'
 
-describe('ProfileComponent', () => {
-  let component: ProfileComponent
-  let fixture: ComponentFixture<ProfileComponent>
+describe('LoginComponent', () => {
+  let component: LoginComponent
+  let fixture: ComponentFixture<LoginComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProfileComponent],
       imports: commonTestingModules,
       providers: commonTestingProviders,
+      declarations: [LoginComponent],
     }).compileComponents()
   })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProfileComponent)
+    fixture = TestBed.createComponent(LoginComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { commonTestingModules } from '../common/common.testing'
+import { commonTestingModules, commonTestingProviders } from '../common/common.testing'
 import { InventoryComponent } from './inventory.component'
 
 describe('InventoryComponent', () => {
@@ -11,6 +11,7 @@ describe('InventoryComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [InventoryComponent],
       imports: commonTestingModules,
+      providers: commonTestingProviders,
     }).compileComponents()
   })
 

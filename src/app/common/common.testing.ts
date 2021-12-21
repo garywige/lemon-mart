@@ -7,7 +7,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { RouterTestingModule } from '@angular/router/testing'
 import { Observable, Subscription, of } from 'rxjs'
 
+import { AuthService } from '../auth/auth.service'
+import { AuthServiceFake } from '../auth/auth.service.fake'
 import { MaterialModule } from '../material.module'
+import { UiService, UiServiceFake } from './ui.service'
 
 const FAKE_SVGS = {
   lemon: '<svg><path id="lemon"></path></svg>',
@@ -65,7 +68,8 @@ export class DomSanitizerFake {
 }
 
 export const commonTestingProviders: any[] = [
-  // Intentionally left blank
+  { provide: AuthService, useClass: AuthServiceFake },
+  { provide: UiService, useClass: UiServiceFake },
 ]
 
 export const commonTestingModules: any[] = [

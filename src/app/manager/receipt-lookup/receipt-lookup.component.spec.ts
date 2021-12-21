@@ -1,4 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import {
+  commonTestingModules,
+  commonTestingProviders,
+} from 'src/app/common/common.testing'
 
 import { ReceiptLookupComponent } from './receipt-lookup.component'
 
@@ -9,6 +13,8 @@ describe('ReceiptLookupComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ReceiptLookupComponent],
+      imports: commonTestingModules,
+      providers: commonTestingProviders,
     }).compileComponents()
   })
 

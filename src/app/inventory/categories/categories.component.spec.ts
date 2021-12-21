@@ -1,4 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import {
+  commonTestingModules,
+  commonTestingProviders,
+} from 'src/app/common/common.testing'
 
 import { CategoriesComponent } from './categories.component'
 
@@ -8,6 +12,8 @@ describe('CategoriesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: commonTestingModules,
+      providers: commonTestingProviders,
       declarations: [CategoriesComponent],
     }).compileComponents()
   })
