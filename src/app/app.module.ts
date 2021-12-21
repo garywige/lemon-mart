@@ -1,5 +1,7 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
+import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app'
+import { getFirestore, provideFirestore } from '@angular/fire/firestore'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser'
@@ -35,6 +37,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    provideFirebaseApp(() => initializeApp({})),
+    provideFirestore(() => getFirestore()),
   ],
   providers: [
     { provide: AuthService, useClass: InMemoryAuthService },
