@@ -11,7 +11,7 @@ import {
 import { Observable, map, take } from 'rxjs'
 
 import { UiService } from '../common/ui.service'
-import { Role } from './auth.enum'
+import { Role, isAuthorized } from './auth.enum'
 import { AuthService } from './auth.service'
 
 @Injectable({
@@ -62,18 +62,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
       return true
     }
 
-    // manager can access clerk & cashier
-    // clerk can access cashier
-    // Manager = 7
-    // clerk = 3
-    // cashier = 1
-
-    let expectedRole = route.data['expectedRole']
-    let gateBit = expectedRole === 'manager' ? 4 : expectedRole === 'clerk' ? 2 : 1
-    let keyBits =
-      role === 'manager' ? 7 : role === 'clerk' ? 3 : role === 'cashier' ? 1 : 0
-
-    return (keyBits & gateBit) > 0
+    return isAuthorized(role, route.data['expectedRole'])
   }
 
   private showAlert(isAuth: boolean, roleMatch: boolean) {
