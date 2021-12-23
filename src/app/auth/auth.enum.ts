@@ -12,3 +12,9 @@ export function isAuthorized(role: Role, expectedRole: Role): boolean {
 
   return (keyBits & gateBit) > 0
 }
+
+export enum AuthMode {
+  InMemory = 'In Memory',
+  CustomServer = 'Custom Server',
+  FireBase = 'Firebase',
+}

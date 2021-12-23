@@ -1,3 +1,5 @@
+import { AuthMode } from 'src/app/auth/auth.enum'
+
 export const environment = {
   firebase: {
     projectId: 'lemon-mart-cd9d6',
@@ -9,4 +11,5 @@ export const environment = {
     measurementId: 'G-E16FTZBXJ9',
   },
   production: true,
+  authMode: AuthMode.FireBase,
 }
