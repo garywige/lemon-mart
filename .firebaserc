@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "lemon-mart-cd9d6"
+  },
+  "targets": {
+    "lemon-mart-cd9d6": {
+      "hosting": {
+        "lemon-mart": [
+          "lemon-mart-cd9d6"
+        ]
+      }
+    }
+  }
+}
