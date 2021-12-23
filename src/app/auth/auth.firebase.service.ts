@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/compat/auth'
 import { User as FirebaseUser } from 'firebase/auth'
-import { Observable, OperatorFunction, Subject, map } from 'rxjs'
+import { Observable, Subject, map } from 'rxjs'
 
 import { IUser, User } from '../user/user/user'
 import { Role } from './auth.enum'
