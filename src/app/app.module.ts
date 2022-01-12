@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app'
 import { getAuth, provideAuth } from '@angular/fire/auth'
@@ -48,7 +48,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     provideAuth(() => getAuth()),
   ],
   providers: [
-    { provide: AuthService, useFactory: authFactory, deps: [AngularFireAuth] },
+    { provide: AuthService, useFactory: authFactory, deps: [AngularFireAuth, HttpClient] },
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
     { provide: AngularFireAuth, useClass: AngularFireAuth },
   ],
