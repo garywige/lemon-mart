@@ -12,7 +12,7 @@ export const environment = {
     apiKey: 'AIzaSyCg2GLVNgULJmtSgJZrb_xyYV1w7KnsbHU',
     authDomain: 'lemon-mart-cd9d6.firebaseapp.com',
     messagingSenderId: '1056202869839',
-    measurementId: 'G-E16FTZBXJ9'
+    measurementId: 'G-E16FTZBXJ9',
   },
   production: false,
   baseUrl: 'http://localhost:3000',

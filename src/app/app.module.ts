@@ -48,7 +48,11 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     provideAuth(() => getAuth()),
   ],
   providers: [
-    { provide: AuthService, useFactory: authFactory, deps: [AngularFireAuth, HttpClient] },
+    {
+      provide: AuthService,
+      useFactory: authFactory,
+      deps: [AngularFireAuth, HttpClient],
+    },
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
     { provide: AngularFireAuth, useClass: AngularFireAuth },
   ],
